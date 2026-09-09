@@ -202,3 +202,102 @@ textarea.input {
   font-size: 0.75rem;
   font-weight: 600;
 }
+
+/* ─── Claymorphism utilities ─────────────────────────────────────────────────
+   The "clay" effect combines:
+   · An outer ambient shadow (depth below the element)
+   · A bright outer highlight on the top-left (light source)
+   · An inner highlight on the top-left (surface convexity)
+   · An inner dark on the bottom-right (surface concavity)
+   ─────────────────────────────────────────────────────────────────────────── */
+
+.clay-card {
+  box-shadow:
+    8px 8px 20px rgba(43, 24, 16, 0.14),
+    -4px -4px 12px rgba(255, 255, 255, 0.85),
+    inset 3px 3px 7px rgba(255, 255, 255, 0.95),
+    inset -3px -3px 7px rgba(43, 24, 16, 0.09);
+  border-radius: 28px;
+  border: none;
+  transition:
+    transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.28s ease;
+}
+
+.clay-card:hover {
+  transform: translateY(-6px) scale(1.015);
+  box-shadow:
+    14px 18px 32px rgba(43, 24, 16, 0.18),
+    -6px -6px 16px rgba(255, 255, 255, 0.9),
+    inset 3px 3px 7px rgba(255, 255, 255, 0.95),
+    inset -3px -3px 7px rgba(43, 24, 16, 0.09);
+}
+
+/* Smaller clay surface — for pills and filter buttons */
+.clay-pill {
+  box-shadow:
+    4px 4px 10px rgba(43, 24, 16, 0.12),
+    -2px -2px 6px rgba(255, 255, 255, 0.85),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.9),
+    inset -2px -2px 4px rgba(43, 24, 16, 0.08);
+  border-radius: 9999px;
+  border: none;
+  transition:
+    transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.22s ease;
+}
+
+.clay-pill:hover,
+.clay-pill.active {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow:
+    6px 8px 16px rgba(43, 24, 16, 0.16),
+    -3px -3px 8px rgba(255, 255, 255, 0.9),
+    inset 2px 2px 4px rgba(255, 255, 255, 0.9),
+    inset -2px -2px 4px rgba(43, 24, 16, 0.08);
+}
+
+/* Active (pressed) clay pill — depresses inward */
+.clay-pill.active {
+  transform: translateY(1px) scale(0.98);
+  box-shadow:
+    2px 2px 6px rgba(43, 24, 16, 0.10),
+    -1px -1px 4px rgba(255, 255, 255, 0.7),
+    inset 3px 3px 8px rgba(43, 24, 16, 0.14),
+    inset -2px -2px 5px rgba(255, 255, 255, 0.6);
+}
+
+/* Clay button — prominent CTA */
+.clay-btn {
+  box-shadow:
+    4px 5px 12px rgba(178, 58, 85, 0.35),
+    -2px -2px 6px rgba(255, 200, 200, 0.4),
+    inset 2px 2px 4px rgba(255, 180, 180, 0.4),
+    inset -2px -2px 4px rgba(100, 10, 30, 0.2);
+  border-radius: 9999px;
+  border: none;
+  transition:
+    transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.22s ease;
+}
+
+.clay-btn:hover {
+  transform: translateY(-3px) scale(1.04);
+  box-shadow:
+    6px 8px 18px rgba(178, 58, 85, 0.4),
+    -3px -3px 8px rgba(255, 200, 200, 0.5),
+    inset 2px 2px 4px rgba(255, 180, 180, 0.4),
+    inset -2px -2px 4px rgba(100, 10, 30, 0.2);
+}
+
+.clay-btn:active {
+  transform: translateY(1px) scale(0.97);
+}
+
+/* Clay image frame */
+.clay-image {
+  box-shadow:
+    inset 4px 4px 10px rgba(43, 24, 16, 0.12),
+    inset -3px -3px 8px rgba(255, 255, 255, 0.7);
+  border-radius: 20px;
+}
