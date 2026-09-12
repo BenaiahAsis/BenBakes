@@ -17,42 +17,47 @@ export default function ClayOrderButton({ item, messengerUsername }: ClayOrderBu
   function handleCopy() {
     navigator.clipboard.writeText(message).then(() => {
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
+      setTimeout(() => setCopied(false), 2200);
     });
   }
 
   return (
     <div className="flex items-center gap-2">
-      {/* Primary: Messenger */}
+      {/* Primary: Messenger direct order */}
       <a
         href={messengerUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="clay-btn flex items-center gap-1.5 px-4 py-2.5 text-sm font-bold text-white"
+        className="clay-btn flex items-center gap-1.5 px-3.5 py-2 text-xs sm:text-sm font-bold text-white whitespace-nowrap"
         style={{
           background: 'var(--berry)',
           fontFamily: "'Work Sans', sans-serif",
           textDecoration: 'none',
         }}
+        title="Open Facebook Messenger with pre-filled order"
       >
         <span>💬</span>
-        Order
+        <span>Order</span>
       </a>
 
-      {/* Fallback: copy */}
+      {/* Copy order button with instant feedback */}
       <button
+        type="button"
         onClick={handleCopy}
-        className="clay-pill flex items-center justify-center w-10 h-10 text-base"
+        className={`clay-pill flex items-center gap-1 px-3 py-2 text-xs font-bold transition-colors whitespace-nowrap ${
+          copied ? 'active' : ''
+        }`}
         style={{
-          background: '#FFF0D9',
-          color: 'var(--ink-soft)',
+          background: copied ? 'var(--pistachio)' : '#FFF0D9',
+          color: copied ? '#ffffff' : 'var(--ink-soft)',
           fontFamily: "'Work Sans', sans-serif",
           cursor: 'pointer',
         }}
-        title="Copy order message to clipboard"
-        aria-label="Copy order message"
+        title="Copy pre-filled order text to clipboard"
+        aria-label="Copy order text"
       >
-        {copied ? '✓' : '📋'}
+        <span>{copied ? '✓' : '📋'}</span>
+        <span>{copied ? 'Copied!' : 'Copy'}</span>
       </button>
     </div>
   );

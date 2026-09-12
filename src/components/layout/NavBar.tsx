@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 const NAV_LINKS = [
+  { href: '/',             label: 'Home' },
   { href: '/menu',         label: 'Menu' },
   { href: '/custom-order', label: 'Custom Orders' },
   { href: '/gallery',      label: 'Gallery' },
@@ -19,43 +20,60 @@ export default function NavBar({ businessName }: { businessName: string }) {
   return (
     <header
       className="sticky top-0 z-50 w-full"
-      style={{ background: 'var(--buttercream)', borderBottom: '1px solid var(--line)' }}
+      style={{
+        background: 'rgba(251, 241, 222, 0.94)',
+        backdropFilter: 'blur(10px)',
+        borderBottom: '1px solid rgba(230, 217, 194, 0.8)',
+      }}
     >
-      <div className="max-w-5xl mx-auto px-4 flex items-center justify-between h-14">
-        {/* Logo / wordmark */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
+        {/* Logo / wordmark with cute cookie icon */}
         <Link
           href="/"
-          className="font-display text-xl font-bold leading-none"
+          className="font-display text-2xl font-bold flex items-center gap-2 group"
           style={{ color: 'var(--ganache)', fontVariationSettings: "'SOFT' 100, 'WONK' 1" }}
         >
-          {businessName}
+          <span className="clay-badge w-9 h-9 flex items-center justify-center text-xl bg-[#FFF6E5] group-hover:rotate-12 transition-transform">
+            🍪
+          </span>
+          <span>{businessName}</span>
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-1">
-          {NAV_LINKS.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className="px-3 py-1.5 rounded-full text-sm font-medium transition-colors"
-              style={{
-                color: pathname === href ? 'var(--berry)' : 'var(--ink-soft)',
-                background: pathname === href ? '#F9E6EB' : 'transparent',
-                fontFamily: "'Work Sans', sans-serif",
-              }}
-            >
-              {label}
-            </Link>
-          ))}
-          <Link href="/custom-order" className="btn-berry ml-2 text-sm py-1.5 px-4">
-            Order Now
+        {/* Desktop nav with clay pills */}
+        <nav className="hidden md:flex items-center gap-2">
+          {NAV_LINKS.map(({ href, label }) => {
+            const isActive = pathname === href;
+            return (
+              <Link
+                key={href}
+                href={href}
+                className={`clay-pill px-4 py-1.5 text-sm font-semibold transition-all ${
+                  isActive ? 'active' : ''
+                }`}
+                style={{
+                  background: isActive ? 'var(--pistachio)' : '#FFF6E5',
+                  color: isActive ? '#ffffff' : 'var(--ink)',
+                  fontFamily: "'Work Sans', sans-serif",
+                  textDecoration: 'none',
+                }}
+              >
+                {label}
+              </Link>
+            );
+          })}
+          <Link
+            href="/custom-order"
+            className="clay-btn ml-2 text-sm py-2 px-5 font-bold text-white flex items-center gap-1.5"
+            style={{ background: 'var(--berry)', textDecoration: 'none' }}
+          >
+            <span>💬</span> Order
           </Link>
         </nav>
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden p-2 rounded-md"
-          style={{ color: 'var(--ink)' }}
+          className="md:hidden clay-pill w-10 h-10 flex items-center justify-center"
+          style={{ background: '#FFF6E5', color: 'var(--ink)' }}
           onClick={() => setOpen((o) => !o)}
           aria-label={open ? 'Close menu' : 'Open menu'}
           aria-expanded={open}
@@ -75,30 +93,37 @@ export default function NavBar({ businessName }: { businessName: string }) {
       {/* Mobile dropdown */}
       {open && (
         <nav
-          className="md:hidden border-t px-4 py-3 flex flex-col gap-1"
+          className="md:hidden border-t px-4 py-4 flex flex-col gap-2"
           style={{ borderColor: 'var(--line)', background: 'var(--buttercream)' }}
         >
-          {NAV_LINKS.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              onClick={() => setOpen(false)}
-              className="px-3 py-2 rounded-lg text-sm font-medium"
-              style={{
-                color: pathname === href ? 'var(--berry)' : 'var(--ink)',
-                background: pathname === href ? '#F9E6EB' : 'transparent',
-                fontFamily: "'Work Sans', sans-serif",
-              }}
-            >
-              {label}
-            </Link>
-          ))}
+          {NAV_LINKS.map(({ href, label }) => {
+            const isActive = pathname === href;
+            return (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setOpen(false)}
+                className={`clay-pill px-4 py-2.5 text-sm font-semibold flex items-center justify-between ${
+                  isActive ? 'active' : ''
+                }`}
+                style={{
+                  background: isActive ? 'var(--pistachio)' : '#FFF6E5',
+                  color: isActive ? '#ffffff' : 'var(--ink)',
+                  fontFamily: "'Work Sans', sans-serif",
+                }}
+              >
+                <span>{label}</span>
+                {isActive && <span className="text-xs">●</span>}
+              </Link>
+            );
+          })}
           <Link
             href="/custom-order"
             onClick={() => setOpen(false)}
-            className="btn-berry mt-2 justify-center"
+            className="clay-btn mt-2 py-3 justify-center text-center font-bold text-white flex items-center gap-2"
+            style={{ background: 'var(--berry)' }}
           >
-            Order Now
+            <span>💬</span> Order Now
           </Link>
         </nav>
       )}

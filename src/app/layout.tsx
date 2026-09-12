@@ -46,8 +46,8 @@ export async function generateMetadata(): Promise<Metadata> {
 // Fallback settings when DB is not yet configured
 const fallbackSettings: SiteSettings = {
   id: 1,
-  business_name: 'Sweet Crumbs',
-  tagline: 'Home-baked cakes and pastries, made with love.',
+  business_name: 'Ben Bakes',
+  tagline: 'Affordable Freshly Made Cookies — baked fresh in Bacolod City.',
   address: null,
   hours_text: null,
   lead_time_text: null,
